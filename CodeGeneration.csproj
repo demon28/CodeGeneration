@@ -1,0 +1,346 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{0E3A6716-B092-41F2-B623-CEFA3F5A60F2}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeGeneration</RootNamespace>
+    <AssemblyName>CodeGeneration</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CodeSmith.Engine, Version=5.0.0.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\CodeSmith.Engine.dll</HintPath>
+    </Reference>
+    <Reference Include="DevComponents.DotNetBar2, Version=7.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\DevComponents.DotNetBar2.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.TextEditor, Version=3.1.0.4977, Culture=neutral, PublicKeyToken=4d61825e8dd49f1a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\ICSharpCode.TextEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.ConnectionUI, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.Data.ConnectionUI.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Data.ConnectionUI.Dialog, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\Microsoft.Data.ConnectionUI.Dialog.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.VisualBasic" />
+    <Reference Include="Microsoft.VisualBasic.PowerPacks.Vs, Version=10.0.0.0" />
+    <Reference Include="SchemaExplorer, Version=5.0.0.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SchemaExplorer.dll</HintPath>
+    </Reference>
+    <Reference Include="SchemaExplorer.ADOXSchemaProvider, Version=5.0.0.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SchemaExplorer.ADOXSchemaProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="SchemaExplorer.MySQLSchemaProvider, Version=5.0.0.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SchemaExplorer.MySQLSchemaProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="SchemaExplorer.OracleSchemaProvider, Version=5.0.0.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SchemaExplorer.OracleSchemaProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="SchemaExplorer.PostgreSQLSchemaProvider, Version=5.0.0.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SchemaExplorer.PostgreSQLSchemaProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="SchemaExplorer.SqlCompactSchemaProvider, Version=5.0.0.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SchemaExplorer.SqlCompactSchemaProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="SchemaExplorer.SQLiteSchemaProvider, Version=5.0.0.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SchemaExplorer.SQLiteSchemaProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="SchemaExplorer.SqlSchemaProvider, Version=5.0.0.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SchemaExplorer.SqlSchemaProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="SchemaExplorer.VistaDBSchemaProvider, Version=5.0.0.0, Culture=neutral, PublicKeyToken=940cfcde86f32efd, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\SchemaExplorer.VistaDBSchemaProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.SQLite, Version=1.0.61.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Messaging" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Xml.Linq">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FormBase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormBase.Designer.cs">
+      <DependentUpon>FormBase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmAddConnection.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAddConnection.Designer.cs">
+      <DependentUpon>FrmAddConnection.cs</DependentUpon>
+    </Compile>
+    <Compile Include="GeneraterForm .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GeneraterForm .Designer.cs">
+      <DependentUpon>GeneraterForm .cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainV2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainV2.Designer.cs">
+      <DependentUpon>MainV2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NewTemplate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="NewTemplate.Designer.cs">
+      <DependentUpon>NewTemplate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmAddConnection.resx">
+      <DependentUpon>FrmAddConnection.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="GeneraterForm .resx">
+      <DependentUpon>GeneraterForm .cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MainV2.resx">
+      <DependentUpon>MainV2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="NewTemplate.resx">
+      <DependentUpon>NewTemplate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TreeViewFrm.resx">
+      <DependentUpon>TreeViewFrm.cs</DependentUpon>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <None Include="CodeTemplate\Easy.rar" />
+    <None Include="CodeTemplate\Easy\Oracle\ExtensionDataAccess.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Easy\Oracle\GenerateDataAccess.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Easy\Oracle\ViewGenerateDataAccess.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Easy\SQLite\ExtensionDataAccess.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Easy\SQLite\GenerateDataAccess.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Easy\SQLServer\ExtensionDataAccess.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Easy\SQLServer\GenerateDataAccess.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Easy\SQLServer\GenerateDataAccessV2.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\test.template" />
+    <None Include="CodeTemplate\Winner\SQLServer\DAL.ViewGenerate.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\SQLServer\ViewMap.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\SQLServer\TableMap.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\Oracle\DAL.DModel.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\Oracle\DAL.DViewModel.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\Oracle\DAL.Extension.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\Oracle\DAL.Generate.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\Oracle\DAL.GenerateV2.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\Oracle\DAL.ViewGenerate.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\Oracle\SQLServer\DAL.Extension.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\Oracle\SQLServer\DAL.Generate.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\SQLServer\DAL.Extension.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="CodeTemplate\Winner\SQLServer\DAL.Generate.template">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="TreeViewFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TreeViewFrm.Designer.cs">
+      <DependentUpon>TreeViewFrm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TextBoxSEO.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UserControls\TextBoxSEO.Designer.cs">
+      <DependentUpon>TextBoxSEO.cs</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeGeneration.Entities\CodeGeneration.Entities.csproj">
+      <Project>{F831508C-D53E-486A-9E06-BD6210EF76DE}</Project>
+      <Name>CodeGeneration.Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGeneration.Facade\CodeGeneration.Facade.csproj">
+      <Project>{84D484D2-1852-4AFA-ABDB-62B67825D652}</Project>
+      <Name>CodeGeneration.Facade</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CodeGeneration.Interface\CodeGeneration.Interface.csproj">
+      <Project>{86BB6926-567B-4288-8DFE-F42F773EFBF0}</Project>
+      <Name>CodeGeneration.Interface</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Resources\ATROX.ICO" />
+    <None Include="Properties\DataSources\SchemaExplorer.TableKeySchemaCollection.datasource" />
+    <None Include="Resources\dbadd.gif" />
+    <None Include="Resources\cs.gif" />
+    <Content Include="Resources\Exit.ico" />
+    <Content Include="Resources\file.ico" />
+    <Content Include="Resources\Folderclose.gif" />
+    <Content Include="Resources\Folderopen.gif" />
+    <Content Include="Resources\Open.ico" />
+    <Content Include="Resources\refrush.gif" />
+    <Content Include="Resources\run.gif" />
+    <None Include="Resources\save.gif" />
+    <None Include="Resources\sln2.ico" />
+    <Content Include="Resources\toobar2.gif" />
+    <None Include="Resources\xna.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

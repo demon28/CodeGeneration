@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Template name="自定义扩展类">
+  <Assembly name="CodeGeneration.Facade" namespace="CodeGeneration.Entities.Winner.Oracle.DataAccess.ExtensionDataAccessGeneration"/>
+  <Parameters>
+    <Property FileName="{0}.extension.cs" remarks="文件名称"/>
+    <Property name="TableName" remarks="需要映射对应的数据库表名称，在此同时作为类名"/>
+  </Parameters>
+  <Code Language="C#">
+    <![CDATA[
+ /***************************************************
+ *
+ * Winner Framework Of Data Access Layer
+ * FileName : $TableName$.extension.cs 
+ * CreateData : $FileCreateTime$ 
+ * Version : V 1.01
+ * E_Mail : jie@p.cn
+ * Blog : http://www.cnblogs.com/fineblog/
+ * Copyright (C) Winner(深圳-威斯达)
+ * 
+ ***************************************************/
+using System;
+using System.Data;
+using Winner.CU.DataAccess;
+using Winner.Oracle.DataAccess;
+namespace Winner.CU.*.DataAccess
+{
+    /// <summary>
+    /// Data Access Layer Object Of $TableName$
+    /// </summary>
+    public partial class $TableName$ : DataAccessBase
+    {
+        //Custom Extension Class
+    }
+
+    /// <summary>
+    /// Data Access Layer Object Collection Of $TableName$
+    /// </summary>
+    public partial class $TableName$Collection : DataAccessCollectionBase
+    {
+        //Custom Extension Class
+    }
+}]]>
+  </Code>
+</Template>

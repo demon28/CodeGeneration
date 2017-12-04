@@ -1,0 +1,238 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Template name="生成数据访问层对象模板">
+  <Assembly name="CodeGeneration.Facade" namespace="CodeGeneration.Facade.Easy.SQLite.DataAccess.DataAccessGenerationV2"/>
+  <Parameters>
+    <Property FileName="{0}.generate.cs" remarks="文件名称"/>
+    <Property name="TableName" remarks="需要映射对应的数据库表名称，在此同时作为类名"/>
+    <Property name="PrimaryKey" remarks="表主键名称"/>
+    <Property name="PrimaryKeyDBType" remarks="表主键数据类型"/>
+    <Property name="ConstProperty" remarks="对应表中每个字段的常量"/>
+    <Property name="PublicProperty" remarks="对应表中每个字段的公开变量"/>
+    <Property name="ConstPrimaryKey" remarks="表主键的常量"/>
+    <Property name="ItemBuilbRow" remarks="创建对应表字段的DataRow对象"/>
+    <Property name="CollectionBuilbRow" remarks="创建对应表字段的DataRow对象"/>
+    <Property name="InsertMethod" remarks="插入数据方法"/>
+    <Property name="UpdateByConditionMethod" remarks="修改数据方法的SQL"/>
+    <Property name="UpdatedbParameters" remarks="修改数据方法的DB参数"/>
+    <Property name="ForeignKeyColumnsSelect" remarks="外键关联查询"/>
+    <Property name="UniqueKeyColumnsSelect" remarks="唯一建查询"/>
+  </Parameters>
+  <Code Language="C#" >
+    <![CDATA[
+ /***************************************************
+ *
+ * Easy Core Of Data Access Layer
+ * FileName : $TableName$.generateCode.cs 
+ * CreateData : $FileCreateTime$ 
+ * Version : V 1.01
+ * E_Mail :6e9e@163.com
+ * Blog : http://www.cnblogs.com/fineblog/
+ * Copyright (C) Easy Core(jie) 
+ * 
+ ***************************************************/
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Data;
+using Easy.Core;
+using Easy.Core.DataAccess;
+using Easy.Core.DataAccess.SQLite;
+namespace Easy.CorporateSiteBase.DataAccess
+{
+	/// <summary>
+	/// Data Access Layer Object Of $TableName$
+	/// </summary>
+	public partial class $TableName$ : DataAccessBase
+	{    
+        #region 默认构造
+
+        public $TableName$() : base() { }
+
+        public $TableName$(DataRow dataRow)
+            : base(dataRow) { }
+
+        #endregion 默认构造
+        #region 构造和基本
+        protected override string TableName
+        {
+            get { return _TableName; }
+        }
+$ConstProperty$
+		//NFAP: new field add point.新加字段时需要修改此处。请不要删除所有NFAP标志。
+    
+		public const string _TableName="$TableName.ToUpper()$";
+
+        protected override DataRow BuildRow()
+        {
+            DataTable dt = new DataTable(_TableName);
+$ItemBuilbRow$
+            return dt.NewRow();
+        }
+		#endregion 构造和基本
+		#region 属性
+
+$PublicProperty$
+		//NFAP
+		#endregion 属性;
+		#region 基本方法
+		
+        public bool Delete($PrimaryKeyDBType$ $ConstPrimaryKey.ToCamelNomenclatureProp()$)
+        {
+            string condition = "$ConstPrimaryKey.ToUpper()$=:$ConstPrimaryKey.ToUpper()$";
+            AddParameter(_$ConstPrimaryKey$, $ConstPrimaryKey.ToCamelNomenclatureProp()$);
+            return DeleteByCondition(condition);
+        }
+
+		protected bool DeleteByCondition(string condition)
+        {
+            string sql = @"DELETE FROM $TableName.ToUpper()$ WHERE " + condition;
+            return base.DeleteBySql(sql);
+        }
+        
+        public bool Insert()
+        {
+$InsertMethod$
+        }
+		
+        public bool Update()
+        {
+            return UpdateByCondition(string.Empty);
+        }
+		
+        protected bool UpdateByCondition(string condition)
+        {
+            $UpdateByConditionMethod$
+            if (!string.IsNullOrEmpty(condition))
+                sql += " And " + condition;
+            return base.UpdateBySql(sql);
+        }
+
+        protected bool SelectByCondition(string condition)
+        {
+            string sql = @"
+SELECT
+$SelectByConditionMethod$
+FROM $TableName.ToUpper()$
+WHERE " + condition;
+            return base.SelectBySql(sql);
+        }
+
+        public bool SelectByPk($PrimaryKeyDBType$ $ConstPrimaryKey.ToCamelNomenclatureProp()$)
+        {
+            string condition = "$ConstPrimaryKey$=:$ConstPrimaryKey$";
+            AddParameter(_$ConstPrimaryKey$, $ConstPrimaryKey.ToCamelNomenclatureProp()$);
+            return SelectByCondition(condition);
+        }
+$ForeignKeyColumnsSelect$
+$UniqueKeyColumnsSelect$
+
+		#endregion 基本方法
+		//提示：常规方法请写到GenerateCode外面的同名类中
+	}
+	/// <summary>
+	/// Data Access Layer Object Collection Of $TableName$
+	/// </summary>
+	public partial class $TableName$Collection : DataAccessCollectionBase
+	{
+        #region 默认构造
+ 
+        public $TableName$Collection() { }
+
+        public $TableName$Collection(DataTable table)
+            : base(table) { }
+            
+        #endregion 默认构造	
+		
+		#region 构造和基本
+        protected override DataTable BuildTable()
+        {
+            DataTable dt = new DataTable($TableName$._TableName);
+$CollectionBuilbRow$
+            return dt;
+        }
+        protected override string TableName
+        {
+            get { return $TableName$._TableName; }
+        }
+        
+        protected override DataAccessBase GetItemByIndex(int index)
+        {
+            return new $TableName$(DataTable.Rows[index]);
+        }	
+		#endregion 构造和基本
+    
+		#region 属性
+    
+        public $TableName$ this[int index]
+        {
+            get { return new $TableName$(DataTable.Rows[index]); }
+        }
+        
+		#endregion 属性;
+    
+		#region 基本方法
+    
+        protected bool ListByCondition(string condition)
+        {
+            string sql = @"
+SELECT
+$SelectByConditionMethod$
+FROM $TableName.ToUpper()$
+WHERE " + condition;
+            return base.ListBySql(sql);
+        }
+
+        public bool ListBy$ConstPrimaryKey.ToPascalNomenclatureProp()$($PrimaryKeyDBType$ $ConstPrimaryKey.ToCamelNomenclatureProp()$)
+        {
+            string condition = "$ConstPrimaryKey$=:$ConstPrimaryKey$";
+            AddParameter($TableName$._$ConstPrimaryKey$, $ConstPrimaryKey.ToCamelNomenclatureProp()$);
+            return ListByCondition(condition);
+        }
+
+        public bool ListAll()
+        {
+            string condition = "1=1";
+            return ListByCondition(condition);
+        }
+    
+        #region Linq
+        
+        public $TableName$ Find(Predicate<$TableName$> match)
+        {
+            foreach ($TableName$ item in this)
+            {
+                if (match(item))
+                    return item;
+            }
+            return null;
+        }
+        public $TableName$Collection FindAll(Predicate<$TableName$> match)
+        {
+            $TableName$Collection list = new $TableName$Collection();
+            foreach ($TableName$ item in this)
+            {
+                if (match(item))
+                    list.Add(item);
+            }
+            return list;
+        }
+        public bool Contains(Predicate<$TableName$> match)
+        {
+            foreach ($TableName$ item in this)
+            {
+                if (match(item))
+                    return true;
+            }
+            return false;
+        }
+        
+        #endregion Linq
+        
+		#endregion 基本方法
+		//提示：常规方法请写到GenerateCode外面的同名类中
+	}
+}
+]]>
+  </Code>
+
+</Template>

@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Template name="生成数据访问层对象模板">
+  <Assembly name="CodeGeneration.Facade" namespace="CodeGeneration.Facade.Easy.SQLServer.DataAccess.DataAccessGeneration"/>
+    <Parameters>
+    <Property FileName="{0}.generate.cs" remarks="文件名称"/>
+    <Property name="TableName" remarks="需要映射对应的数据库表名称，在此同时作为类名"/>
+    <Property name="PrimaryKey" remarks="表主键名称"/>
+    <Property name="PrimaryKeyDBType" remarks="表主键数据类型"/>
+    <Property name="ConstProperty" remarks="对应表中每个字段的常量"/>
+    <Property name="PublicProperty" remarks="对应表中每个字段的公开变量"/>
+    <Property name="ConstPrimaryKey" remarks="表主键的常量"/>
+    <Property name="ItemBuilbRow" remarks="创建对应表字段的DataRow对象"/>
+    <Property name="CollectionBuilbRow" remarks="创建对应表字段的DataRow对象"/>
+    <Property name="InsertMethod" remarks="插入数据方法"/>
+    <Property name="UpdateByConditionMethod" remarks="修改数据方法的SQL"/>
+    <Property name="UpdatedbParameters" remarks="修改数据方法的DB参数"/>
+    <Property name="ForeignKeyColumnsSelect" remarks="外键关联查询"/>
+    <Property name="UniqueKeyColumnsSelect" remarks="唯一建查询"/>
+  </Parameters>
+  <Code Language="C#" >
+    <![CDATA[/***************************************************
+ *
+ * Easy Core Of Data Access Layer
+ * FileName : $TableName$.generateCode.cs 
+ * CreateData : $FileCreateTime$ 
+ * Version : V 1.01
+ * E_Mail :6e9e@163.com
+ * Blog : http://www.cnblogs.com/fineblog/
+ * Copyright (C) Easy Core(jie) 
+ * 
+ ***************************************************/
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Data;
+using Easy.Core;
+using Easy.Core.DataAccess;
+using Easy.Core.DataAccess.SQLServer;
+namespace Easy.Sell.DataAccess
+{
+    /// <summary>
+    /// Data Access Layer Object Of $TableName$
+    /// </summary>
+    public partial class $TableName$ : DataAccessBase
+    {
+        #region 默认构造
+
+        public $TableName$() : base() { }
+
+        public $TableName$(DataRow dataRow)
+            : base(dataRow) { }
+
+        #endregion 默认构造
+
+        #region 对应表结构的常量属性
+        
+$ConstProperty$
+    
+        public const string _TABLENAME="$TableName$";
+        #endregion 对应表结构的常量属性
+
+        #region 公开属性
+        
+$PublicProperty$
+        #endregion 公开属性
+        
+        #region 私有成员
+        
+        protected override string TableName
+        {
+            get { return _TABLENAME; }
+        }
+
+        protected override DataRow BuildRow()
+        {
+            DataTable dt = new DataTable(_TABLENAME);
+$ItemBuilbRow$
+            return dt.NewRow();
+        }
+        
+        #endregion 私有成员
+        
+        #region 常用方法
+        
+		protected bool DeleteByCondition(string condition)
+        {
+            string sql = @"DELETE FROM $TableName$ WHERE " + condition;
+            return base.DeleteBySql(sql);
+        }
+		
+        public bool Delete($PrimaryKeyDBType$ $ConstPrimaryKey.ToCamelNomenclatureProp()$)
+        {
+            string condition = "$ConstPrimaryKey.ToUpper()$=:$ConstPrimaryKey.ToUpper()$";
+            AddParameter(_$ConstPrimaryKey$, $ConstPrimaryKey.ToCamelNomenclatureProp()$);
+            return DeleteByCondition(condition);
+        }
+		
+        public bool Delete()
+        {
+            string condition = "$ConstPrimaryKey$=:$ConstPrimaryKey$";
+            AddParameter(_$ConstPrimaryKey$, $PrimaryKey$);
+            return DeleteByCondition(condition);
+        }
+
+        public bool Insert()
+        {
+$InsertMethod$
+        }
+		
+		public bool Update()
+        {
+			return UpdateByCondition(string.Empty);
+        }
+		
+        protected bool UpdateByCondition(string condition)
+        {
+            $UpdateByConditionMethod$
+            if (!string.IsNullOrEmpty(condition))
+                sql += " AND " + condition;
+            return base.UpdateBySql(sql);
+        }
+
+        protected bool SelectByCondition(string condition)
+        {
+            string sql = @"
+SELECT
+$SelectByConditionMethod$
+FROM $TableName.ToUpper()$
+WHERE " + condition;
+            return base.SelectBySql(sql);
+        }
+
+        public bool SelectByPK($PrimaryKeyDBType$ $ConstPrimaryKey.ToCamelNomenclatureProp()$)
+        {
+            string condition = "$ConstPrimaryKey$=:$ConstPrimaryKey$";
+            AddParameter(_$ConstPrimaryKey$, $PrimaryKey$);
+            return SelectByCondition(condition);
+        }
+$ForeignKeyColumnsSelect$
+$UniqueKeyColumnsSelect$
+
+        #endregion 常用方法
+        
+        //提示：此类由代码生成器生成，如无特殊情况请不要更改。如要扩展请在外部同名类中扩展
+    }
+    
+    /// <summary>
+    /// Data Access Layer Object Collection Of $TableName$
+    /// </summary>
+    public partial class $TableName$Collection : DataAccessCollectionBase
+    {
+        #region 默认构造
+ 
+        public $TableName$Collection() { }
+
+        public $TableName$Collection(DataTable table)
+            : base(table) { }
+            
+        #endregion 默认构造
+        
+        #region 私有成员
+        protected override DataAccessBase GetItemByIndex(int index)
+        {
+            return new $TableName$(DataTable.Rows[index]);
+        }
+        
+        protected override DataTable BuildTable()
+        {
+            return new  $TableName$().CloneSchemaOfTable();
+        }
+        
+        protected override string TableName
+        {
+            get { return $TableName$._TABLENAME; }
+        }
+        
+        protected bool ListByCondition(string condition)
+        {
+            string sql = @"
+SELECT
+$SelectByConditionMethod$
+FROM $TableName.ToUpper()$
+WHERE " + condition;
+            return base.ListBySql(sql);
+        }
+
+        public bool ListBy$ConstPrimaryKey.ToPascalNomenclatureProp()$($PrimaryKeyDBType$ $ConstPrimaryKey.ToCamelNomenclatureProp()$)
+        {
+            string condition = "$ConstPrimaryKey$=:$ConstPrimaryKey$";
+            AddParameter($TableName$._$ConstPrimaryKey$, $ConstPrimaryKey.ToCamelNomenclatureProp()$);
+            return ListByCondition(condition);
+        }
+
+        public bool ListAll()
+        {
+            string condition = "1=1";
+            return ListByCondition(condition);
+        }
+        
+        public bool DeleteByCondition(string condition)
+        {
+            string sql = "DELETE FROM $TableName.ToUpper()$ WHERE 1=1 " + condition;
+            return DeleteBySql(sql);
+        }
+        #endregion
+        
+        #region 公开成员
+        public $TableName$ this[int index]
+        {
+            get
+            {
+                return new $TableName$(DataTable.Rows[index]);
+            }
+        }
+
+        public bool DeleteAll()
+        {
+            return this.DeleteByCondition(string.Empty);
+        }
+        
+        #region Linq
+        
+        public $TableName$ Find(Predicate<$TableName$> match)
+        {
+            foreach ($TableName$ item in this)
+            {
+                if (match(item))
+                    return item;
+            }
+            return null;
+        }
+        public $TableName$Collection FindAll(Predicate<$TableName$> match)
+        {
+            $TableName$Collection list = new $TableName$Collection();
+            foreach ($TableName$ item in this)
+            {
+                if (match(item))
+                    list.Add(item);
+            }
+            return list;
+        }
+        public bool Contains(Predicate<$TableName$> match)
+        {
+            foreach ($TableName$ item in this)
+            {
+                if (match(item))
+                    return true;
+            }
+            return false;
+        }
+
+        public bool DeleteAt(Predicate<$TableName$> match)
+        {
+            BeginTransaction();
+            foreach ($TableName$ item in this)
+            {
+                item.ReferenceTransactionFrom(Transaction);
+                if (!match(item))
+                    continue;
+                if (!item.Delete())
+                {
+                    Rollback();
+                    return false;
+                }
+            }
+            Commit();
+            return true;
+        }
+        #endregion Linq
+        #endregion
+        
+        //提示：此类由代码生成器生成，如无特殊情况请不要更改。如要扩展请在外部同名类中扩展
+    }
+} ]]>
+  </Code>
+</Template>
